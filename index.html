@@ -1,0 +1,31 @@
+<html>
+
+<head>
+	<title>Parcel Sandbox</title>
+	<meta charset="UTF-8" />
+	<style>
+		body {
+			position: relative;
+		}
+		#canvasContainer{
+			position: fixed;
+			top: 0; right: 0; bottom: 0; left: 0;
+		}
+		#pickSong {
+			position: absolute;
+			z-index: 99;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="pickSong">
+		<audio id="myAudio" controls></audio>
+		<input type="file">
+	</div>
+	<div id="canvasContainer">
+	</div>
+	<script src="src/index.js"></script>
+</body>
+
+</html>

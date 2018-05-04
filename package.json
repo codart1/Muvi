@@ -1,0 +1,19 @@
+{
+  "name": "music-visualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "jquery": "3.3.1",
+    "pixi.js": "4.7.3"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "latest",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": []
+}
