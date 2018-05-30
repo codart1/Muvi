@@ -19,7 +19,7 @@ export default class Debugger extends BaseRenderEntity {
     this.visualizer.stage.addChild(this.FPS);
   }
 
-  onTick(delta) {
+  onTick = delta => {
     this.FPS.text = `FPS is: ${this.visualizer.FPS}`;
-  }
+  };
 }

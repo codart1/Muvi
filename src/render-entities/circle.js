@@ -12,9 +12,27 @@ function createTexture() {
   return graphics.generateCanvasTexture();
 }
 
-function createCircle() {
+function createCircle(cont, trailLength = 40) {
   const circle = new PIXI.Sprite(texture);
-  return circle;
+  const trails = [...Array(trailLength).keys()].map(v => {
+    const trail = new PIXI.Sprite(texture);
+    cont.addChild(trail);
+    return trail;
+  });
+
+  circle.doTrail = () => {
+    trails.forEach((item, i) => {
+      if (i + 1 === trailLength) {
+        item.x = circle.x;
+        item.y = circle.y;
+        return;
+      }
+      item.x = trails[i + 1].x;
+      item.y = trails[i + 1].y;
+    });
+  };
+
+  return { circle, trails };
 }
 
 const texture = createTexture();
@@ -23,8 +41,6 @@ export default class Circles extends BaseRenderEntity {
   periodicRad = 0;
   periodicRadInscreament = 2 * Math.PI / 300;
 
-  effectSprite = new PIXI.Sprite();
-  previousGroupTexture = null;
   group = new PIXI.Container();
 
   init() {
@@ -32,19 +48,27 @@ export default class Circles extends BaseRenderEntity {
 
     this.circles = [];
     for (let i = 0; i < n; i++) {
-      const radian = inscrement * i;
-      const circle = createCircle();
+      const radian = inscrement * i,
+        color = Math.random() * 0xffffff;
+      const { circle, trails } = createCircle(this.group);
 
       circle.x = center.x + radius * Math.cos(radian);
       circle.y = center.y + radius * Math.sin(radian);
       circle.anchor.set(0.5);
-      circle.tint = Math.random() * 0xffffff;
-      circle.alpha = 0.5;
+      circle.tint = color;
+      circle.alpha = 0.8;
+
+      trails.forEach(item => {
+        item.tint = color;
+        item.anchor.set(0.5);
+        item.alpha = 0.3;
+      });
+
+      circle.doTrail();
 
       this.circles.push(circle);
     }
 
-    this.group.addChild(this.effectSprite);
     this.group.addChild(...this.circles);
 
     this.visualizer.stage.addChild(this.group);
@@ -53,32 +77,15 @@ export default class Circles extends BaseRenderEntity {
   onTick(delta) {
     const data = this.visualizer.data;
     const { center, radius, inscrement } = this.caculatedFactors;
-    // this.periodicRad += this.periodicRadInscreament;
 
     data.forEach((value, i) => {
       const circle = this.circles[i];
       const radian = inscrement * i;
       circle.x = center.x + (radius + value) * Math.cos(radian);
       circle.y = center.y + (radius + value) * Math.sin(radian);
+
+      circle.doTrail();
     });
-
-    if (!this.previousGroupTexture) {
-      this.previousGroupTexture = this.app.renderer.generateTexture(this.group);
-    }
-
-    // if (this.app.ticker.elapsedMS % 100 == 0) {
-    const temp = this.effectSprite.texture;
-
-    this.effectSprite.texture = this.previousGroupTexture;
-
-    this.group.alpha = 0.9;
-    this.previousGroupTexture = this.app.renderer.generateTexture(this.group);
-    this.group.alpha = 1;
-
-    temp.destroy();
-    // }
-
-    // }
   }
 
   get caculatedFactors() {
