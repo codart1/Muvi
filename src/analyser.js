@@ -7,7 +7,7 @@ export default class Analyser {
 
     source.connect(this.analyser);
     this.analyser.connect(audioContext.destination);
-    this.analyser.fftSize = 64;
+    this.analyser.fftSize = 256;
     this.analyser.minDecibels = -90;
     this.analyser.maxDecibels = 0;
 

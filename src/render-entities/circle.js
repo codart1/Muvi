@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import BaseRenderEntity from "./base-render-entity";
+import chroma from "chroma-js";
 
 function createTexture() {
   const graphics = new PIXI.Graphics();
@@ -12,7 +13,17 @@ function createTexture() {
   return graphics.generateCanvasTexture();
 }
 
-function createCircle(cont, trailLength = 40) {
+function hslToInt(h, s, l) {
+  return parseInt(
+    chroma
+      .hsl(h, s, l)
+      .hex()
+      .replace(/^#/, ""),
+    16
+  );
+}
+
+function createCircle(cont, trailLength = 15) {
   const circle = new PIXI.Sprite(texture);
   const trails = [...Array(trailLength).keys()].map(v => {
     const trail = new PIXI.Sprite(texture);
@@ -49,19 +60,23 @@ export default class Circles extends BaseRenderEntity {
     this.circles = [];
     for (let i = 0; i < n; i++) {
       const radian = inscrement * i,
-        color = 0xff3636;
+        HSL = [360 / n * i, 1, 0.6],
+        color = hslToInt(...HSL);
       const { circle, trails } = createCircle(this.group);
 
       circle.x = center.x + radius * Math.cos(radian);
       circle.y = center.y + radius * Math.sin(radian);
       circle.anchor.set(0.5);
       circle.tint = color;
-      circle.alpha = .8;
+      circle.alpha = 0.8;
 
-      trails.forEach(item => {
+      trails.forEach((item, i) => {
+        const scale = 1 / trails.length * i;
+
         item.tint = color;
         item.anchor.set(0.5);
-        item.alpha = 0.2;
+        item.alpha = 1;
+        item.scale.set(scale, scale);
       });
 
       circle.doTrail();
@@ -81,8 +96,8 @@ export default class Circles extends BaseRenderEntity {
     data.forEach((value, i) => {
       const circle = this.circles[i];
       const radian = inscrement * i;
-      circle.x = center.x + (radius + value) * Math.cos(radian);
-      circle.y = center.y + (radius + value) * Math.sin(radian);
+      circle.x = center.x + (radius + value * 1.2) * Math.cos(radian);
+      circle.y = center.y + (radius + value * 1.2) * Math.sin(radian);
 
       circle.doTrail();
     });
