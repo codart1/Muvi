@@ -49,19 +49,19 @@ export default class Circles extends BaseRenderEntity {
     this.circles = [];
     for (let i = 0; i < n; i++) {
       const radian = inscrement * i,
-        color = Math.random() * 0xffffff;
+        color = 0xff3636;
       const { circle, trails } = createCircle(this.group);
 
       circle.x = center.x + radius * Math.cos(radian);
       circle.y = center.y + radius * Math.sin(radian);
       circle.anchor.set(0.5);
       circle.tint = color;
-      circle.alpha = 0.8;
+      circle.alpha = .8;
 
       trails.forEach(item => {
         item.tint = color;
         item.anchor.set(0.5);
-        item.alpha = 0.3;
+        item.alpha = 0.2;
       });
 
       circle.doTrail();
