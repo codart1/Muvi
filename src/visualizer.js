@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { Debugger, Circles, Line } from "./render-entities";
+import { Debugger, Circles, Line, Dot } from "./render-entities";
 
 export default class Visualizer {
   renderEntities = [];
@@ -12,6 +12,7 @@ export default class Visualizer {
 
     this.renderEntities.push(new Circles(this));
     // this.renderEntities.push(new Line(this));
+    this.renderEntities.push(new Dot(this));
     this.renderEntities.push(new Debugger(this));
     this.renderEntities.forEach(item => item.init());
   }
@@ -21,7 +22,7 @@ export default class Visualizer {
       this.domContainer.offsetWidth,
       this.domContainer.offsetHeight,
       {
-        backgroundColor: 0x000000,
+        backgroundColor: 0x1e1821,
         antialias: true
       }
     );

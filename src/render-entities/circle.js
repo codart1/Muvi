@@ -96,7 +96,7 @@ export default class Circles extends BaseRenderEntity {
     data.forEach((value, i) => {
       const circle = this.circles[i];
       const radian = inscrement * i;
-      const distance = radius + this.averageValue * .5 + value * 1.2;
+      const distance = radius + this.averageValue * 0.5 + value * 1.2;
 
       circle.x = center.x + distance * Math.cos(radian);
       circle.y = center.y + distance * Math.sin(radian);
@@ -108,9 +108,11 @@ export default class Circles extends BaseRenderEntity {
   get averageValue() {
     const data = this.visualizer.data;
 
-    return data.reduce((prev, curr, i) => {
-      return prev + curr
-    }, 0) / data.length
+    return (
+      data.reduce((prev, curr, i) => {
+        return prev + curr;
+      }, 0) / data.length
+    );
   }
 
   get caculatedFactors() {
