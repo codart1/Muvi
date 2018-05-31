@@ -11,7 +11,7 @@ export default class Visualizer {
     this.init();
 
     this.renderEntities.push(new Circles(this));
-    this.renderEntities.push(new Line(this));
+    // this.renderEntities.push(new Line(this));
     this.renderEntities.push(new Debugger(this));
     this.renderEntities.forEach(item => item.init());
   }
