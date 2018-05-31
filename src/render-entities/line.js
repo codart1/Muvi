@@ -55,7 +55,6 @@ export default class Line extends BaseRenderEntity {
                     3
                 )
 
-                // this.graphic.closePath()
                 this.graphic.endFill()
             }
         });

@@ -96,17 +96,27 @@ export default class Circles extends BaseRenderEntity {
     data.forEach((value, i) => {
       const circle = this.circles[i];
       const radian = inscrement * i;
-      circle.x = center.x + (radius + value * 1.2) * Math.cos(radian);
-      circle.y = center.y + (radius + value * 1.2) * Math.sin(radian);
+      const distance = radius + this.averageValue * .5 + value * 1.2;
+
+      circle.x = center.x + distance * Math.cos(radian);
+      circle.y = center.y + distance * Math.sin(radian);
 
       circle.doTrail();
     });
   }
 
+  get averageValue() {
+    const data = this.visualizer.data;
+
+    return data.reduce((prev, curr, i) => {
+      return prev + curr
+    }, 0) / data.length
+  }
+
   get caculatedFactors() {
     const { width, height } = this.app.screen;
     const center = { x: width / 2, y: height / 2 },
-      radius = width > height ? height / 6 : width / 6,
+      radius = width > height ? height / 8 : width / 8,
       n = this.visualizer.analyser.data.length,
       inscrement = 2 * Math.PI / n;
     return {
