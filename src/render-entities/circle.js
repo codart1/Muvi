@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import BaseRenderEntity from "./base-render-entity";
 import chroma from "chroma-js";
+import { hslToInt } from "../utils";
 
 function createTexture() {
   const graphics = new PIXI.Graphics();
@@ -11,16 +12,6 @@ function createTexture() {
   graphics.endFill();
 
   return graphics.generateCanvasTexture();
-}
-
-function hslToInt(h, s, l) {
-  return parseInt(
-    chroma
-      .hsl(h, s, l)
-      .hex()
-      .replace(/^#/, ""),
-    16
-  );
 }
 
 function createCircle(cont, trailLength = 15) {

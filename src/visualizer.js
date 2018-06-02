@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { Debugger, Circles, Line, Dot } from "./render-entities";
+import { Debugger, Circles, Line, Dot, Ambient } from "./render-entities";
 
 export default class Visualizer {
   renderEntities = [];
@@ -10,6 +10,7 @@ export default class Visualizer {
 
     this.init();
 
+    this.renderEntities.push(new Ambient(this));
     this.renderEntities.push(new Circles(this));
     // this.renderEntities.push(new Line(this));
     this.renderEntities.push(new Dot(this));
