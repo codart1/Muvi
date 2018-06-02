@@ -13,24 +13,24 @@ function createTexture() {
 }
 
 export default class Dot extends BaseRenderEntity {
-  dots = [];
-  texture = createTexture();
+  dots      = [];
+  texture   = createTexture();
   container = new PIXI.Container();
-  MAX_VAL = 150;
+  MAX_VAL   = 150;
 
   init() {
-    const data = this.visualizer.data;
+    const data              = this.visualizer.data;
     const { width, height } = this.app.screen;
 
     this.dots = [...Array(data.length).keys()].map(() => {
-      const dot = new PIXI.Sprite(this.texture);
-      dot.x = Math.random() * width;
-      dot.y = Math.random() * height;
+      const dot   = new PIXI.Sprite(this.texture);
+            dot.x = Math.random() * width;
+            dot.y = Math.random() * height;
 
       const dX = Math.random() * width - dot.x;
       const dY = Math.random() * height - dot.y;
 
-      dot.angle = Math.atan2(dX, dY);
+      dot.angle    = Math.atan2(dX, dY);
       dot.velocity = 50;
 
       return dot;
@@ -42,14 +42,14 @@ export default class Dot extends BaseRenderEntity {
   }
 
   onTick(delta) {
-    const deltaSecond = delta / 1000;
-    const data = this.visualizer.data;
+    const deltaSecond       = delta / 1000;
+    const data              = this.visualizer.data;
     const { width, height } = this.app.screen;
 
     this.dots.forEach((item, i) => {
       const value = data[i],
-        v = (item.velocity + value * 10) * deltaSecond,
-        alpha = value > this.MAX_VAL ? 1 : 1 / this.MAX_VAL * value;
+            v     = (item.velocity + value * 10) * deltaSecond,
+            alpha = value > this.MAX_VAL ? 1 : 1 / this.MAX_VAL * value;
 
       item.x += v * Math.cos(item.angle);
       item.y += v * Math.sin(item.angle);

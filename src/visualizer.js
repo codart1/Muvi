@@ -1,11 +1,11 @@
 import * as PIXI from "pixi.js";
-import { Debugger, Circles, Line, Dot, Ambient } from "./render-entities";
+import { Ambient, Circles, Debugger, Dot } from "./render-entities";
 
 export default class Visualizer {
   renderEntities = [];
 
   constructor(analyser, domContainer) {
-    this.analyser = analyser;
+    this.analyser     = analyser;
     this.domContainer = domContainer;
 
     this.init();
@@ -24,7 +24,7 @@ export default class Visualizer {
       this.domContainer.offsetHeight,
       {
         backgroundColor: 0x1e1821,
-        antialias: true
+        antialias      : true
       }
     );
     this.domContainer.appendChild(this.app.view);

@@ -1,10 +1,10 @@
 import * as PIXI from "pixi.js";
-import BaseRenderEntity from "./base-render-entity";
 import { hslToInt } from "../utils";
+import BaseRenderEntity from "./base-render-entity";
 
 export default class Line extends BaseRenderEntity {
-  rect = new PIXI.Graphics();
-  hslColor = [302, 0.16, 0.13];
+  rect         = new PIXI.Graphics();
+  hslColor     = [302, 0.16, 0.13];
   huePerSecond = 100;
 
   init() {

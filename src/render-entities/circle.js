@@ -1,7 +1,6 @@
 import * as PIXI from "pixi.js";
-import BaseRenderEntity from "./base-render-entity";
-import chroma from "chroma-js";
 import { hslToInt } from "../utils";
+import BaseRenderEntity from "./base-render-entity";
 
 function createTexture() {
   const graphics = new PIXI.Graphics();

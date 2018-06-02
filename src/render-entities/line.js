@@ -3,8 +3,8 @@ import BaseRenderEntity from "./base-render-entity";
 
 export default class Line extends BaseRenderEntity {
   graphic = null;
-  padX = 0.1;
-  cache = [];
+  padX    = 0.1;
+  cache   = [];
 
   init() {
     this.graphic = new PIXI.Graphics();
@@ -20,18 +20,18 @@ export default class Line extends BaseRenderEntity {
     const data = this.visualizer.data;
 
     const { width, height } = this.app.screen,
-      cenX = width / 2,
-      cenY = height / 2,
-      radius = 100,
-      inscrement = 2 * Math.PI / data.length;
+          cenX              = width / 2,
+          cenY              = height / 2,
+          radius            = 100,
+          inscrement        = 2 * Math.PI / data.length;
 
     this.graphic.clear();
     this.graphic.lineStyle(1, 0xff1d1d, 1, 0.5);
 
     data.forEach((item, i) => {
       const radian = inscrement * i;
-      const x = cenX + (radius + item) * Math.cos(radian);
-      const y = cenY + (radius + item) * Math.sin(radian);
+      const x      = cenX + (radius + item) * Math.cos(radian);
+      const y      = cenY + (radius + item) * Math.sin(radian);
 
       this.cache[i] = { x, y };
 
@@ -53,9 +53,9 @@ export default class Line extends BaseRenderEntity {
 
   doStraightLine() {
     const { width, height } = this.app.screen,
-      middleY = height / 2,
-      startX = width * this.padX,
-      lineWidth = width - startX * 2;
+          middleY           = height / 2,
+          startX            = width * this.padX,
+          lineWidth         = width - startX * 2;
 
     this.graphic.clear();
 
