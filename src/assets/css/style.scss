@@ -1,0 +1,74 @@
+body {
+  position: relative;
+}
+
+@mixin coverAll {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#canvasContainer {
+  @include coverAll;
+  position: fixed;
+}
+
+#start {
+  @include coverAll;
+  z-index: 99;
+  position: fixed;
+  background: linear-gradient(135deg, #2f5b62 0%, #291e38 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 3s ease;
+
+  &:before {
+    @include coverAll;
+    content: "";
+    position: absolute;
+    background: linear-gradient(135deg, #622f2f 0%, #291e38 100%);
+    animation: ambient 4s linear 0s infinite alternate;
+  }
+
+  &.hide {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+#play {
+  cursor: pointer;
+  transition: all ease 0.4s;
+  position: relative;
+  z-index: 100;
+  /* filter: drop-shadow( 0px 0px 0px #fff0dd ); */
+  svg {
+    fill: #ffd9ad;
+  }
+  &:hover {
+    filter: drop-shadow(0px 0px 6px #fff0dd);
+  }
+}
+
+#bar {
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 0.5rem;
+  color: #828282;
+  font-family: monospace;
+}
+
+@keyframes ambient {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -4,7 +4,7 @@ import BaseRenderEntity from "./base-render-entity";
 
 export default class Line extends BaseRenderEntity {
   rect         = new PIXI.Graphics();
-  hslColor     = [302, 0.16, 0.13];
+  hslColor     = [302, 0.10, 0.10];
   huePerSecond = 100;
 
   init() {

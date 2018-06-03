@@ -1,3 +1,3 @@
 export default [
-  require('./assets/25.mp3')
+  require('./assets/W4L.mp3')
 ];
