@@ -1,0 +1,51 @@
+body {
+    position: relative;
+}
+
+#canvasContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#pickSong {
+    position: absolute;
+    z-index: 9;
+}
+
+#start {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #152828;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 1s ease;
+}
+
+#start.hide {
+    visibility: hidden;
+    opacity: 0;
+}
+
+#play {
+    cursor: pointer;
+    transition: all ease .4s;
+    /* filter: drop-shadow( 0px 0px 0px #fff0dd ); */
+}
+
+#play:hover {
+    filter: drop-shadow( 0px 0px 6px #fff0dd );
+}
+
+#play svg {
+    fill: #ffd9ad;
+}

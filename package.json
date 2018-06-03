@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --open",
+    "start": "parcel index.html --open --no-hmr -d dev",
     "build": "parcel build index.html"
   },
   "dependencies": {
