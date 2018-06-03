@@ -1,4 +1,6 @@
 export default class BaseRenderEntity {
+  averageVal = null;
+
   constructor(visualizer) {
     this.visualizer = visualizer;
   }
@@ -13,6 +15,20 @@ export default class BaseRenderEntity {
 
   onDestroy() {
     console.log("please implement onDestroy");
+  }
+
+  doTick(delta) {
+    this.averageVal = this.caculateAverage();
+    this.onTick(delta);
+  }
+
+  caculateAverage() {
+    const data = this.visualizer.data;
+    return (
+      data.reduce((prev, curr, i) => {
+        return prev + curr;
+      }, 0) / data.length
+    );
   }
 
   get app() {

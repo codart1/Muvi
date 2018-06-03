@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { Ambient, Circles, Debugger, Dot } from "./render-entities";
+import { Ambient, Circles, Debugger, Dot, Shape } from "./render-entities";
 
 export default class Visualizer {
   renderEntities = [];
@@ -12,6 +12,7 @@ export default class Visualizer {
 
     this.renderEntities.push(new Ambient(this));
     this.renderEntities.push(new Circles(this));
+    this.renderEntities.push(new Shape(this));
     // this.renderEntities.push(new Line(this));
     this.renderEntities.push(new Dot(this));
     this.renderEntities.push(new Debugger(this));
@@ -33,7 +34,7 @@ export default class Visualizer {
   }
 
   onTick(delta) {
-    this.renderEntities.forEach(item => item.onTick(delta));
+    this.renderEntities.forEach(item => item.doTick(delta));
   }
 
   get FPS() {
