@@ -7,13 +7,13 @@ function createTexture() {
 
   graphics.lineStyle(0);
   graphics.beginFill(0xffffff, 1);
-  graphics.drawCircle(0, 0, 3);
+  graphics.drawCircle(0, 0, 4);
   graphics.endFill();
 
   return graphics.generateCanvasTexture();
 }
 
-function createCircle(cont, trailLength = 15) {
+function createCircle(cont, trailLength = 25) {
   const circle = new PIXI.Sprite(texture);
   const trails = [...Array(trailLength).keys()].map(v => {
     const trail = new PIXI.Sprite(texture);

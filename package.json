@@ -8,6 +8,8 @@
     "build": "rimraf ./dist && parcel build index.html"
   },
   "dependencies": {
+    "@pixi/filter-pixelate": "^2.5.0",
+    "@pixi/filter-shockwave": "^2.6.1",
     "chroma-js": "^1.3.7",
     "jquery": "3.3.1",
     "pixi.js": "4.7.3"

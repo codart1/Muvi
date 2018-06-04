@@ -1,5 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Ambient, Circles, Debugger, Dot, Shape } from "./render-entities";
+import {ShockwaveFilter} from '@pixi/filter-shockwave';
+import {PixelateFilter} from '@pixi/filter-pixelate';
 
 export default class Visualizer {
   renderEntities = [];
@@ -28,14 +30,26 @@ export default class Visualizer {
         antialias      : true
       }
     );
-    this.app.renderer = new PIXI.WebGLRenderer ( this.domContainer.offsetWidth, this.domContainer.offsetHeight );
+    this.app.renderer = PIXI.autoDetectRenderer( this.domContainer.offsetWidth, this.domContainer.offsetHeight );
     this.domContainer.appendChild(this.app.view);
 
     this.app.ticker.add(this.onTick, this);
+
+    //TODO: clean filters after play
+    // this.shock = new ShockwaveFilter()
+    // this.shock.center = {x: this.app.screen.with / 2, x: this.app.screen.heigh / 2}
+    this.stage.filters = [
+      // this.shock,
+      // new PixelateFilter(10)
+    ]
   }
 
   onTick(delta) {
     this.renderEntities.forEach(item => item.doTick(delta));
+
+    // const [x, y] = this.stage.filters[0].size
+    // this.stage.filters[0].size[0] -= .1 
+    // this.stage.filters[0].size[1] -= .1 
   }
 
   get FPS() {
