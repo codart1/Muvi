@@ -12,7 +12,7 @@ export default class Visualizer {
 
     this.renderEntities.push(new Ambient(this));
     this.renderEntities.push(new Circles(this));
-    this.renderEntities.push(new Shape(this));
+    // this.renderEntities.push(new Shape(this));
     // this.renderEntities.push(new Line(this));
     this.renderEntities.push(new Dot(this));
     this.renderEntities.push(new Debugger(this));
@@ -28,6 +28,7 @@ export default class Visualizer {
         antialias      : true
       }
     );
+    this.app.renderer = new PIXI.WebGLRenderer ( this.domContainer.offsetWidth, this.domContainer.offsetHeight );
     this.domContainer.appendChild(this.app.view);
 
     this.app.ticker.add(this.onTick, this);
@@ -43,6 +44,10 @@ export default class Visualizer {
 
   get stage() {
     return this.app.stage;
+  }
+
+  get renderer() {
+    return this.app.renderer;
   }
 
   get data() {

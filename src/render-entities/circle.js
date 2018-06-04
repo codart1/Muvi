@@ -42,10 +42,15 @@ export default class Circles extends BaseRenderEntity {
   periodicRad = 0;
   periodicRadInscreament = 2 * Math.PI / 300;
 
+  brt = new PIXI.BaseRenderTexture(this.app.screen.width, this.app.screen.height, PIXI.SCALE_MODES.LINEAR, 1);
+  rt = new PIXI.RenderTexture(this.brt);
+  mirrorSprite = new PIXI.Sprite(this.rt)
+
   group = new PIXI.Container();
 
   init() {
     const { center, radius, n, inscrement } = this.caculatedFactors;
+    const { width, height } = this.app.screen;
 
     this.circles = [];
     for (let i = 0; i < n; i++) {
@@ -59,7 +64,7 @@ export default class Circles extends BaseRenderEntity {
       circle.anchor.set(0.5);
       circle.tint = color;
       circle.alpha = 0.8;
-      // circle.blendMode = PIXI.BLEND_MODES.SCREEN;
+      circle.blendMode = PIXI.BLEND_MODES.SCREEN;
 
       trails.forEach((item, i) => {
         const scale = 1 / trails.length * i;
@@ -68,7 +73,7 @@ export default class Circles extends BaseRenderEntity {
         item.anchor.set(0.5);
         item.alpha = 1;
         item.scale.set(scale, scale);
-        // item.blendMode = PIXI.BLEND_MODES.SCREEN;
+        item.blendMode = PIXI.BLEND_MODES.SCREEN;
       });
 
       circle.doTrail();
@@ -77,8 +82,15 @@ export default class Circles extends BaseRenderEntity {
     }
 
     this.group.addChild(...this.circles);
-
+    
     this.visualizer.stage.addChild(this.group);
+    this.visualizer.stage.addChild(this.mirrorSprite);
+
+    this.mirrorSprite.anchor.set(.5, .5)
+    this.mirrorSprite.x = width / 2
+    this.mirrorSprite.y = height / 2
+    this.mirrorSprite.scale.x = -1
+    // this.mirrorSprite.blendMode = PIXI.BLEND_MODES.OVERLAY
   }
 
   onTick(delta) {
@@ -87,22 +99,24 @@ export default class Circles extends BaseRenderEntity {
 
     data.forEach((value, i) => {
       const circle = this.circles[i];
-      const radian = inscrement * i;
-      const distance = radius + this.averageVal * 0.5 + value * 1.2;
+      const radian = inscrement * i + Math.PI/2;
+      const distance = radius + this.averageVal * 0.5 + value;
 
       circle.x = center.x + distance * Math.cos(radian);
       circle.y = center.y + distance * Math.sin(radian);
 
       circle.doTrail();
     });
+
+    this.visualizer.renderer.render(this.group, this.rt)
   }
 
   get caculatedFactors() {
     const { width, height } = this.app.screen;
     const center = { x: width / 2, y: height / 2 },
-      radius = width > height ? height / 8 : width / 8,
+      radius = width > height ? height / 12 : width / 12,
       n = this.visualizer.analyser.data.length,
-      inscrement = 2 * Math.PI / n;
+      inscrement = Math.PI / n + Math.PI / 5;
     return {
       center,
       radius,
