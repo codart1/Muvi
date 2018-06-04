@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open --no-hmr -d dev",
-    "build": "rimraf ./dist && parcel build index.html"
+    "build": "rimraf ./dist && parcel build index.html",
+    "deploy": "npm run build && surge --domain muvi.surge.sh --project ./dist"
   },
   "dependencies": {
     "@pixi/filter-pixelate": "^2.5.0",
@@ -18,7 +19,8 @@
     "babel-plugin-transform-class-properties": "latest",
     "node-sass": "^4.9.0",
     "parcel-bundler": "^1.6.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "surge": "^0.20.1"
   },
   "keywords": []
 }
