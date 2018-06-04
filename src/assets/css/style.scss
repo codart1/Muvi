@@ -54,6 +54,27 @@ body {
   }
 }
 
+#upload {
+  position: relative;
+  z-index: 999;
+  margin-left: 0.5rem;
+
+  img {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: scale(0.7, 0.7);
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
+  input {
+    display: none;
+  }
+}
+
 #bar {
   z-index: 999;
   position: fixed;
